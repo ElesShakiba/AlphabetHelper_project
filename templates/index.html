@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بازی اسم فامیل</title>
+    <style>
+        body { font-family: Arial, sans-serif; direction: rtl; text-align: center; }
+        input, button { margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>بازی اسم فامیل</h1>
+    <input type="text" id="letter" placeholder="یک حرف وارد کنید">
+    <button onclick="getWords()">دریافت کلمات</button>
+    <div id="results"></div>
+    <script>
+        async function getWords() {
+            const letter = document.getElementById('letter').value;
+            const response = await fetch(`/api/words?letter=${letter}`);
+            const data = await response.json();
+            document.getElementById('results').innerHTML = `
+                <p>اسم: ${data.name}</p>
+                <p>فامیل: ${data.family}</p>
+                <p>غذا: ${data.food}</p>
+                <p>شهر: ${data.city}</p>
+                <p>کشور: ${data.country}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
